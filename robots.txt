@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://reliable-cendol-9276d1.netlify.app/sitemap.xml
+Sitemap: https://roodyjerry16-svg.github.io/NLE-Best-Deal/sitemap.xml
