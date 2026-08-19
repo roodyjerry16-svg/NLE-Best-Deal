@@ -432,6 +432,10 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 @media(max-width:480px){.brand span{font-size:.92rem}.logo-img{width:58px!important;height:48px!important}.nav-cta{padding:8px 10px;font-size:.78rem}.mobile-menu-toggle{width:44px;height:44px}.product .product-img{height:265px!important}.product-modal-image{height:42vh!important;min-height:220px}.mobile-quickbar a{font-size:.72rem}.hero h1{font-size:clamp(2rem,11vw,3rem)}}
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mobile-menu,.mobile-menu-panel{transition:none}.whatsapp-float:hover{transform:none}}
 </style>
+<style>
+.dynamic-product-gallery{position:relative}.dynamic-product-gallery img:not(:first-of-type){display:none}.dynamic-product.is-out-of-stock{opacity:.72}.dynamic-product .availability{font-weight:800}.dynamic-product .product-img{background:#0b1020}.dynamic-product .product-img img{object-fit:cover}
+@media(max-width:600px){.dynamic-product .product-img{height:240px!important}.dynamic-product .buy{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+</style>
 </head>
 <body>
 <header>
@@ -703,7 +707,9 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 </script>
 <div aria-hidden="true" class="product-modal-backdrop" id="productModal"><div aria-labelledby="productModalTitle" aria-modal="true" class="product-modal" role="dialog"><button aria-label="Fermer" class="product-modal-close" type="button">×</button><div class="product-modal-gallery"><img loading="lazy" decoding="async" alt="" class="product-modal-image" id="productModalImage" loading="eager"/><button aria-label="Photo précédente" class="gallery-arrow prev" id="galleryPrev" type="button">‹</button><button aria-label="Photo suivante" class="gallery-arrow next" id="galleryNext" type="button">›</button><div aria-label="Photos du produit" class="product-modal-thumbs" id="productModalThumbs"></div></div><div class="product-modal-copy"><div class="eyebrow">🛍️ DÉTAILS DU PRODUIT</div><h2 id="productModalTitle">Produit</h2><p id="productModalDescription">Découvrez ce produit chez NLE Best Deal.</p><div class="product-modal-price" id="productModalPrice">—</div><div class="product-modal-meta" id="productModalMeta"></div><div class="modal-price-note">Prix affiché en gourdes haïtiennes (HTG).</div><div class="product-modal-delivery"><strong>🚚 Livraison</strong><span>Carrefour et Delmas : gratuite</span><span>Autres zones : selon la quantité achetée</span></div><div class="related-products"><h3>Vous pourriez aussi aimer</h3><div class="related-grid" id="relatedProducts"></div></div><a class="btn btn-primary" href="#" id="productModalOrder" rel="noopener noreferrer" target="_blank">🛒 Commander sur WhatsApp</a></div></div></div><a aria-label="Contacter NLE Best Deal sur WhatsApp" class="whatsapp-float" href="https://wa.me/50942113669?text=Bonjour%20NLE%20Best%20Deal%2C%20je%20veux%20conna%C3%AEtre%20vos%20produits." rel="noopener noreferrer" target="_blank" title="Contacter sur WhatsApp">💬</a><script>
 (function(){
-  const products=[...document.querySelectorAll('#produits .product')];
+  let products=[...document.querySelectorAll('#produits .product')];
+  function refreshProductList(){ products=[...document.querySelectorAll('#produits .product')]; applyFilters(); }
+  window.addEventListener('nle-products-updated',refreshProductList);
   const search=document.getElementById('productSearch');
   const filterButtons=[...document.querySelectorAll('.category-btn')];
   const count=document.getElementById('resultsCount');
@@ -807,15 +813,16 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
     closeBtn.focus();
   }
   function closeProduct(){modal.classList.remove('open');modal.setAttribute('aria-hidden','true');document.body.style.overflow='';}
-  products.forEach(card=>{
-    card.addEventListener('click',e=>{
-      if(e.target.closest('a,button,input')) return;
-      openProduct(card);
-    });
-    card.addEventListener('keydown',e=>{
-      if((e.key==='Enter'||e.key===' ')&&!e.target.closest('a,button,input')){e.preventDefault();openProduct(card);}
-    });
-    card.setAttribute('tabindex','0');
+  document.querySelectorAll('#produits .product').forEach(card=>card.setAttribute('tabindex','0'));
+  document.addEventListener('click',e=>{
+    const card=e.target.closest('#produits .product');
+    if(!card||e.target.closest('a,button,input')) return;
+    openProduct(card);
+  });
+  document.addEventListener('keydown',e=>{
+    const card=e.target.closest?.('#produits .product');
+    if(!card||e.target.closest('a,button,input')) return;
+    if(e.key==='Enter'||e.key===' '){e.preventDefault();openProduct(card);}
   });
   prev.addEventListener('click',()=>{if(galleryImages.length>1){current=(current-1+galleryImages.length)%galleryImages.length;renderGallery();}});
   next.addEventListener('click',()=>{if(galleryImages.length>1){current=(current+1)%galleryImages.length;renderGallery();}});
@@ -971,5 +978,41 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
  render();renderOrders();
 })();
 </script>
-<div aria-label="Accès rapide mobile" class="mobile-quickbar"><a href="#produits">🛍️ Produits</a><a class="primary" href="https://wa.me/50942113669?text=Bonjour%20NLE%20Best%20Deal%2C%20je%20souhaite%20voir%20les%20deals%20disponibles." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a><a href="#offres">🔥 Deals</a></div><script>document.addEventListener('DOMContentLoaded',function(){const t=document.getElementById('mobileMenuToggle'),m=document.getElementById('mobileMenu'),c=document.getElementById('mobileMenuClose');if(!t||!m)return;const close=()=>{m.classList.remove('open');m.setAttribute('aria-hidden','true');t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Ouvrir le menu');document.body.style.overflow='';};const open=()=>{m.classList.add('open');m.setAttribute('aria-hidden','false');t.setAttribute('aria-expanded','true');t.setAttribute('aria-label','Fermer le menu');document.body.style.overflow='hidden';};t.addEventListener('click',()=>m.classList.contains('open')?close():open());c&&c.addEventListener('click',close);m.addEventListener('click',e=>{if(e.target===m)close();});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open'))close();});});</script></body>
+<div aria-label="Accès rapide mobile" class="mobile-quickbar"><a href="#produits">🛍️ Produits</a><a class="primary" href="https://wa.me/50942113669?text=Bonjour%20NLE%20Best%20Deal%2C%20je%20souhaite%20voir%20les%20deals%20disponibles." rel="noopener noreferrer" target="_blank">💬 WhatsApp</a><a href="#offres">🔥 Deals</a></div><script>document.addEventListener('DOMContentLoaded',function(){const t=document.getElementById('mobileMenuToggle'),m=document.getElementById('mobileMenu'),c=document.getElementById('mobileMenuClose');if(!t||!m)return;const close=()=>{m.classList.remove('open');m.setAttribute('aria-hidden','true');t.setAttribute('aria-expanded','false');t.setAttribute('aria-label','Ouvrir le menu');document.body.style.overflow='';};const open=()=>{m.classList.add('open');m.setAttribute('aria-hidden','false');t.setAttribute('aria-expanded','true');t.setAttribute('aria-label','Fermer le menu');document.body.style.overflow='hidden';};t.addEventListener('click',()=>m.classList.contains('open')?close():open());c&&c.addEventListener('click',close);m.addEventListener('click',e=>{if(e.target===m)close();});m.querySelectorAll('a').forEach(a=>a.addEventListener('click',close));document.addEventListener('keydown',e=>{if(e.key==='Escape'&&m.classList.contains('open'))close();});});</script><script src="supabase-config.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script>
+(function(){
+  const cfg=window.NLE_SUPABASE_CONFIG||{};
+  if(!cfg.url||!cfg.key||String(cfg.url).includes('COLLE_ICI')||String(cfg.key).includes('COLLE_ICI')) return;
+  if(!window.supabase) return;
+  const client=window.supabase.createClient(cfg.url,cfg.key);
+  const grid=document.querySelector('#produits .products');
+  if(!grid) return;
+  const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
+  const wa=name=>`https://wa.me/50942113669?text=${encodeURIComponent('Bonjour NLE Best Deal 👋, je suis intéressé(e) par '+name+'. Je souhaite connaître le prix et les modalités de livraison.')}`;
+  function addDynamicProduct(p){
+    if(grid.querySelector('[data-remote-id="'+CSS.escape(p.id)+'"]')) return;
+    const card=document.createElement('article');
+    card.className='product dynamic-product'; card.dataset.remoteId=p.id; card.dataset.name=p.name; card.dataset.price=p.price; card.dataset.category=p.category; card.dataset.source=p.source||'NLE';
+    const imgs=(p.images||[]).filter(Boolean);
+    const imageHtml=imgs.map((src,i)=>`<img loading="lazy" decoding="async" alt="${esc(p.name)} — photo ${i+1}" src="${esc(src)}">`).join('');
+    card.innerHTML=`<div class="product-img photo product-gallery single dynamic-product-gallery"><div class="badge-stack"><span class="shop-badge new">${esc(p.badge||'NOUVEAU')}</span><span class="source-badge nle">${p.source==='Partenaire'?'🤝 Partenaire':'🛍️ NLE Best Deal'}</span></div><span class="gallery-count">📸 ${imgs.length} photo${imgs.length>1?'s':''}</span>${imageHtml||'<div style="height:100%;display:grid;place-items:center;color:#9ba8c4">Photo indisponible</div>'}</div><div class="product-body"><span class="tag">${esc(p.badge||'NOUVEAU')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'Produit disponible chez NLE Best Deal.')}</p><div class="product-row"><span class="product-price">${esc(p.price)}</span><a class="buy" href="${wa(p.name)}" target="_blank" rel="noopener noreferrer">Commander</a></div><div class="availability">${p.available?'✓ Disponible':'✕ Rupture de stock'}</div></div>`;
+    if(!p.available) card.classList.add('is-out-of-stock');
+    grid.prepend(card);
+  }
+  async function loadRemoteProducts(){
+    try{
+      const {data,error}=await client.from('products').select('*').eq('available',true).order('sort_order',{ascending:false}).order('created_at',{ascending:false});
+      if(error||!data?.length) return;
+      data.forEach(addDynamicProduct);
+      window.dispatchEvent(new CustomEvent('nle-products-updated'));
+      const all=[...document.querySelectorAll('#produits .product')];
+      const ld={"@context":"https://schema.org","@type":"ItemList","name":"Produits NLE Best Deal","itemListElement":data.map((p,i)=>({"@type":"ListItem",position:i+1,item:{"@type":"Product",name:p.name,description:p.description||'',image:p.images||[],offers:{"@type":"Offer",priceCurrency:"HTG",price:String(p.price).replace(/[^0-9.]/g,''),availability:"https://schema.org/InStock"}}}))};
+      const old=document.getElementById('nleRemoteProductsLd'); if(old) old.remove(); const tag=document.createElement('script');tag.type='application/ld+json';tag.id='nleRemoteProductsLd';tag.textContent=JSON.stringify(ld);document.head.appendChild(tag);
+    }catch(e){ console.warn('NLE produits en ligne:',e); }
+  }
+  loadRemoteProducts();
+})();
+</script>
+</body>
 </html>
