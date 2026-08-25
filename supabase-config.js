@@ -50,5 +50,5 @@ window.NLE_SUPABASE_CONFIG = {
     sync();
     setInterval(sync,30000);
   }
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',start,{once:true}); else start();
+  start();
 })();
