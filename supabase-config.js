@@ -11,7 +11,15 @@ window.NLE_SUPABASE_CONFIG = {
   function start(){
     const grid=document.querySelector('#produits .products');
     const nav=document.querySelector('.links');
-    if(nav && !nav.querySelector('a[href*="/admin.html"]')) nav.insertAdjacentHTML('beforeend','<a href="https://roodyjerry16-svg.github.io/NLE-Best-Deal/admin.html">⚙️ Admin</a>');
+    const adminUrl='https://roodyjerry16-svg.github.io/NLE-Best-Deal/admin.html';
+    if(nav && !nav.querySelector('a[href*="/admin.html"]')) nav.insertAdjacentHTML('beforeend','<a href="'+adminUrl+'">⚙️ Admin</a>');
+    if(!document.getElementById('nle-mobile-admin')){
+      const b=document.createElement('a');
+      b.id='nle-mobile-admin'; b.href=adminUrl; b.textContent='⚙️ Admin';
+      b.setAttribute('aria-label','Ouvrir l’administration NLE Best Deal');
+      b.style.cssText='position:fixed;right:14px;bottom:14px;z-index:99999;display:block;padding:11px 15px;border-radius:999px;background:#111;color:#fff;text-decoration:none;font:700 14px Arial,sans-serif;box-shadow:0 4px 16px rgba(0,0,0,.22);';
+      document.body.appendChild(b);
+    }
     const socials=document.querySelector('.socials');
     if(socials && !socials.querySelector('a[href*="tiktok.com"]')) socials.insertAdjacentHTML('beforeend','<a href="https://www.tiktok.com/@jerry_nle" rel="noopener noreferrer" target="_blank">TikTok @jerry_nle</a>');
     if(!grid || !window.supabase) return;
