@@ -10,6 +10,10 @@ window.NLE_SUPABASE_CONFIG = {
 (function(){
   function start(){
     const grid=document.querySelector('#produits .products');
+    const nav=document.querySelector('.links');
+    if(nav && !nav.querySelector('a[href*="/admin.html"]')) nav.insertAdjacentHTML('beforeend','<a href="https://roodyjerry16-svg.github.io/NLE-Best-Deal/admin.html">⚙️ Admin</a>');
+    const socials=document.querySelector('.socials');
+    if(socials && !socials.querySelector('a[href*="tiktok.com"]')) socials.insertAdjacentHTML('beforeend','<a href="https://www.tiktok.com/@jerry_nle" rel="noopener noreferrer" target="_blank">TikTok @jerry_nle</a>');
     if(!grid || !window.supabase) return;
     const cfg=window.NLE_SUPABASE_CONFIG;
     if(!cfg.url || !cfg.key) return;
