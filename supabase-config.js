@@ -11,17 +11,21 @@ window.NLE_SUPABASE_CONFIG = {
     const nav=document.querySelector('.links');
     const adminUrl='https://roodyjerry16-svg.github.io/NLE-Best-Deal/admin.html';
 
-    // Retire l'ancien bouton flottant et l'ancien lien Admin du menu.
+    // Retire les anciennes versions de l'Admin.
     document.getElementById('nle-mobile-admin')?.remove();
     nav?.querySelector('a[href*="/admin.html"]')?.remove();
 
-    // Admin discret à côté des réseaux sociaux, en bas de page.
+    // Admin discret tout en bas, à côté des réseaux sociaux si présents.
     const socials=document.querySelector('.socials');
-    if(socials && !socials.querySelector('[data-nle-admin]')){
+    const footer=document.querySelector('footer') || document.querySelector('.footer');
+    const host=socials || footer || document.body;
+    if(host && !document.querySelector('[data-nle-admin]')){
       const a=document.createElement('a');
       a.href=adminUrl; a.textContent='Admin'; a.dataset.nleAdmin='true';
-      a.style.cssText='font-size:12px;opacity:.45;text-decoration:none;margin-left:10px;';
-      socials.appendChild(a);
+      a.setAttribute('aria-label','Administration NLE Best Deal');
+      a.style.cssText='font-size:11px!important;line-height:1.4;opacity:.38;text-decoration:none;margin-left:10px;display:inline-block;color:inherit!important;font-weight:400;cursor:pointer;';
+      if(host===document.body){a.style.margin='20px auto 8px';a.style.display='block';a.style.textAlign='center';}
+      host.appendChild(a);
     }
 
     if(!grid || !window.supabase) return;
