@@ -72,7 +72,7 @@
     .cta h2{font-size:2rem;margin-bottom:8px}.cta p{color:var(--muted)}
     footer{border-top:1px solid var(--line);padding:30px 0;color:var(--muted)}
     .footer-row{display:flex;justify-content:space-between;gap:20px;align-items:center}
-    .socials{display:flex;gap:16px}.socials a:hover{color:#fff}
+    .socials{display:flex;gap:16px}.socials a:hover{color:#fff}.admin-link-subtle{font-size:.78rem!important;opacity:.38;padding:6px 8px!important;border:0!important;background:transparent!important}.admin-link-subtle:hover{opacity:.8}
     .payment{margin-top:18px;padding:14px 16px;border:1px solid #34405f;border-radius:14px;background:rgba(255,255,255,.04);color:#dfe5f5;font-size:.92rem}.payment strong{color:#fff}.payment .nat{color:#67e8a4;font-weight:900}
     .floating-wa{position:fixed;right:20px;bottom:20px;z-index:30;background:#20c66a;color:#fff;padding:13px 17px;border-radius:999px;font-weight:900;box-shadow:0 12px 30px rgba(0,0,0,.35)}
     .product-price small{display:block;color:#8f9ab3;font-size:.68rem;font-weight:700;margin-top:2px}
@@ -419,12 +419,12 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
   .mobile-menu{position:fixed;inset:0;background:rgba(0,0,0,.62);z-index:200;opacity:0;pointer-events:none;transition:opacity .2s ease;display:block}
   .mobile-menu.open{opacity:1;pointer-events:auto}.mobile-menu-panel{position:absolute;right:0;top:0;height:100%;width:min(88vw,360px);background:#0b1020;border-left:1px solid #34405f;padding:18px 18px calc(24px + env(safe-area-inset-bottom));transform:translateX(100%);transition:transform .25s ease;overflow:auto;box-shadow:-20px 0 60px rgba(0,0,0,.4)}
   .mobile-menu.open .mobile-menu-panel{transform:translateX(0)}.mobile-menu-head{display:flex;align-items:center;justify-content:space-between;padding-bottom:18px;border-bottom:1px solid #27314a}.mobile-menu-close{width:44px;height:44px;border:1px solid #34405f;background:#101729;color:#fff;border-radius:12px;font-size:1.8rem;line-height:1;cursor:pointer}.mobile-menu-links{display:grid;gap:8px;padding-top:14px}.mobile-menu-links a{display:flex;align-items:center;min-height:50px;padding:12px 14px;border-radius:12px;color:#fff;text-decoration:none;background:#101729;border:1px solid #27314a;font-weight:800}.mobile-menu-links a:hover{background:#151e34}
-  .mobile-quickbar{position:fixed;display:grid;grid-template-columns:repeat(3,1fr);gap:6px;left:0;right:0;bottom:0;z-index:150;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(7,11,22,.94);border-top:1px solid #27314a;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
-  .mobile-quickbar a{min-height:48px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:5px;text-decoration:none;color:#fff;background:#101729;border:1px solid #2d3854;font-size:.78rem;font-weight:900}.mobile-quickbar a.primary{background:#25D366;color:#06130b;border-color:#25D366}
+  .mobile-quickbar{position:fixed;display:grid;grid-template-columns:repeat(4,1fr);gap:6px;left:0;right:0;bottom:0;z-index:150;padding:8px 10px calc(8px + env(safe-area-inset-bottom));background:rgba(7,11,22,.94);border-top:1px solid #27314a;backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+  .mobile-quickbar a{min-height:50px;border-radius:12px;display:flex;align-items:center;justify-content:center;gap:5px;text-decoration:none;color:#fff;background:#101729;border:1px solid #2d3854;font-size:.78rem;font-weight:900}.mobile-quickbar a.primary{background:#25D366;color:#06130b;border-color:#25D366}
   .container{width:min(100% - 24px,1200px)}.hero{padding-top:28px}.hero-grid{gap:22px}.section-head{gap:12px}.section-head h2{font-size:clamp(1.65rem,7vw,2.3rem)}
   .product-tools{position:sticky;top:66px;z-index:30;background:rgba(7,11,22,.94);padding:10px 0;backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
   .product-search input{min-height:48px;font-size:16px}.category-filters{gap:8px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch;padding:4px 2px 7px}.category-filters::-webkit-scrollbar{display:none}.category-btn{min-height:44px;white-space:nowrap;padding:10px 14px}
-  .products{grid-template-columns:1fr!important;gap:14px}.product{border-radius:18px}.product .product-img{height:290px!important}.product-body{padding:16px}.product h3{font-size:1.12rem}.product-row{gap:10px;align-items:center}.product .buy{min-height:46px;display:inline-flex;align-items:center;justify-content:center;padding:11px 15px;font-size:.9rem;border-radius:12px}.availability{margin-top:10px}.product-price{font-size:1.3rem!important}
+  .products{grid-template-columns:1fr!important;gap:16px}.product{border-radius:18px;touch-action:manipulation;-webkit-tap-highlight-color:transparent}.product .product-img{height:280px!important}.product-body{padding:17px}.product h3{font-size:1.15rem;line-height:1.25}.product p{font-size:.94rem;line-height:1.5}.product-row{gap:12px;align-items:stretch}.product .buy{min-height:48px;display:inline-flex;align-items:center;justify-content:center;padding:12px 15px;font-size:.92rem;border-radius:12px}.availability{margin-top:10px}.product-price{font-size:1.32rem!important}.nle-product-actions{gap:10px;margin-top:12px}.nle-product-actions button{min-height:48px;font-size:.9rem;padding:12px 10px}.nle-product-actions .nle-add,.nle-product-actions .nle-buy-now{touch-action:manipulation}.nle-fav{width:44px;height:44px;right:10px;top:10px}
   .new-product-highlight{margin-left:0;margin-right:0}.new-product-highlight-media,.new-product-highlight-media img{min-height:250px}.new-product-highlight-copy p{font-size:.96rem;line-height:1.55}
   .product-modal-backdrop{padding:8px}.product-modal{width:100%;max-height:calc(100dvh - 16px);border-radius:18px;overflow:auto}.product-modal-image{height:min(48vh,360px)!important;min-height:250px}.gallery-arrow{width:48px;height:48px;font-size:1.5rem}.product-modal-thumbs{padding-bottom:8px}.product-modal-thumb{flex-basis:72px;height:72px}.product-modal .buy,.product-modal .whatsapp-btn{min-height:50px;display:flex;align-items:center;justify-content:center;position:sticky;bottom:8px;z-index:5}
   .whatsapp-float{bottom:calc(82px + env(safe-area-inset-bottom));right:14px;width:52px;height:52px;z-index:140}
@@ -433,8 +433,26 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.mobile-menu,.mobile-menu-panel{transition:none}.whatsapp-float:hover{transform:none}}
 </style>
 <style>
-.dynamic-product-gallery{position:relative}.dynamic-product-gallery img:not(:first-of-type){display:none}.dynamic-product.is-out-of-stock{opacity:.72}.dynamic-product .availability{font-weight:800}.dynamic-product .product-img{background:#0b1020}.dynamic-product .product-img img{object-fit:cover}
-@media(max-width:600px){.dynamic-product .product-img{height:240px!important}.dynamic-product .buy{min-height:44px;display:inline-flex;align-items:center;justify-content:center}}
+.dynamic-product-gallery{position:relative}.dynamic-product.is-out-of-stock{opacity:.72}.dynamic-product .availability{font-weight:800}.dynamic-product .product-img{background:#0b1020}.dynamic-product .product-img img{object-fit:cover}.dynamic-product .product-img.single{grid-template-columns:1fr}.dynamic-product .product-img:not(.single) img{min-width:0;min-height:0}.dynamic-product .product-body{display:flex;flex-direction:column}.dynamic-product .product-row{margin-top:auto}.dynamic-product .product-price{white-space:nowrap}.dynamic-product .buy{min-height:42px;display:inline-flex;align-items:center;justify-content:center}
+@media(max-width:600px){.dynamic-product .product-img{height:250px!important}.dynamic-product .buy{min-height:44px;width:100%}.dynamic-product .product-row{align-items:stretch;flex-direction:column;gap:10px}}
+</style>
+<style id="nle-mobile-final-fix">
+@media(max-width:800px){
+  .product{min-width:0;}
+  .product .product-img{user-select:none;}
+  .product .product-body{min-width:0;}
+  .product-row{display:flex!important;flex-direction:column!important;}
+  .product-row .product-price{display:block;}
+  .product-row .buy{width:100%;box-sizing:border-box;}
+  .nle-product-actions{display:grid!important;grid-template-columns:1fr 1fr;}
+  .nle-product-actions button{width:100%;box-sizing:border-box;}
+  .mobile-quickbar a{font-size:.68rem;gap:3px;padding-left:4px;padding-right:4px;}
+}
+@media(max-width:390px){
+  .mobile-quickbar a{font-size:.62rem;}
+  .product .product-img{height:255px!important;}
+  .nle-product-actions{grid-template-columns:1fr;}
+}
 </style>
 </head>
 <body>
@@ -665,7 +683,7 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 <footer>
 <div class="container footer-row">
 <div>© 2026 <strong>NLE Best Deal</strong>. Tous droits réservés.</div>
-<div class="socials"><a href="https://www.instagram.com/nle_best_deal/" rel="noopener noreferrer" target="_blank">Instagram @nle_best_deal</a><a href="https://www.instagram.com/jerry__nle/" rel="noopener noreferrer" target="_blank">Instagram @jerry__nle</a><a href="https://www.tiktok.com/@jerry_nle" rel="noopener noreferrer" target="_blank">TikTok @jerry_nle</a></div>
+<div class="socials"><a href="https://www.instagram.com/nle_best_deal/" rel="noopener noreferrer" target="_blank">Instagram @nle_best_deal</a><a href="https://www.instagram.com/jerry__nle/" rel="noopener noreferrer" target="_blank">Instagram @jerry__nle</a><a href="https://www.tiktok.com/@jerry_nle" rel="noopener noreferrer" target="_blank">TikTok @jerry_nle</a><a class="admin-link-subtle" href="https://roodyjerry16-svg.github.io/NLE-Best-Deal/admin.html" rel="noopener noreferrer" aria-label="Administration">⚙️</a></div>
 </div>
 <div style="margin-top:12px">📧 <a href="mailto:roodyjerry16@gmail.com" style="color:#fff;font-weight:800">roodyjerry16@gmail.com</a> — Contact professionnel</div></footer>
 <a aria-label="Commander sur WhatsApp" class="floating-wa" href="https://wa.me/50942113669?text=Bonjour%20NLE%20Best%20Deal%20%F0%9F%91%8B%20Je%20voudrais%20passer%20une%20commande." target="_blank">💬 WhatsApp</a>
@@ -948,7 +966,7 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
  function delivery(zone,qty){if(zone==='Carrefour'||zone==='Delmas')return 0; if(!zone)return 0; return qty>0?'VAR':0}
  function totals(zone){const subtotal=cart.reduce((a,i)=>a+i.price*i.qty,0), qty=cart.reduce((a,i)=>a+i.qty,0), d=delivery(zone,qty);return {subtotal,qty,delivery:d,total:typeof d==='number'?subtotal+d:null}}
  function render(){
-  const count=cart.reduce((a,i)=>a+i.qty,0);$('nleCartCount').textContent=count;
+  const count=cart.reduce((a,i)=>a+i.qty,0);$('nleCartCount').textContent=count;const mq=$('mobileCartQuickCount');if(mq)mq.textContent=count;
   const box=$('nleCartItems'); if(!cart.length){box.innerHTML='<div class="nle-empty">Votre panier est vide.<br>Ajoutez un produit pour commencer.</div>';$('nleCartSummary').innerHTML='';return}
   box.innerHTML=cart.map(i=>`<div class="nle-cart-item"><img src="${i.img}" alt=""><div><h4>${escapeHtml(i.name)}</h4><div class="nle-price">${money(i.price)}</div><div class="nle-qty"><button data-cart-act="minus" data-id="${esc(i.id)}">−</button><b>${i.qty}</b><button data-cart-act="plus" data-id="${esc(i.id)}">+</button><button data-cart-act="remove" data-id="${esc(i.id)}">🗑</button></div></div><strong>${money(i.price*i.qty)}</strong></div>`).join('');
   const t=totals('');$('nleCartSummary').innerHTML=`<div class="nle-line"><span>Sous-total</span><b>${money(t.subtotal)}</b></div><div class="nle-line"><span>Livraison</span><span>Calculée à la commande</span></div><div class="nle-line nle-total"><span>Total</span><b>${money(t.subtotal)}</b></div>`;
@@ -958,6 +976,8 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
  function open(id){$(id).classList.add('open');$(id).setAttribute('aria-hidden','false');document.body.classList.add('modal-lock')}
  function close(id){$(id).classList.remove('open');$(id).setAttribute('aria-hidden','true');document.body.classList.remove('modal-lock')}
  $('nleCartOpen').addEventListener('click',()=>{render();open('nleCartDrawer')});
+ const mobileCartQuick=$('mobileCartQuick');
+ if(mobileCartQuick) mobileCartQuick.addEventListener('click',e=>{e.preventDefault();render();open('nleCartDrawer')});
  $('nleAccountOpen').addEventListener('click',()=>{renderOrders();open('nleAccountModal')});
  document.querySelectorAll('[data-nle-close]').forEach(b=>b.addEventListener('click',()=>close(b.dataset.nleClose)));
  document.querySelectorAll('.nle-drawer,.nle-modal').forEach(m=>m.addEventListener('click',e=>{if(e.target===m)close(m.id)}));
@@ -971,6 +991,7 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
  function paintFavs(){document.querySelectorAll('.product').forEach(card=>{const id=card.dataset.name;if(!id)return;let b=card.querySelector('.nle-fav');if(!b){b=document.createElement('button');b.className='nle-fav';b.type='button';b.setAttribute('aria-label','Ajouter aux favoris');card.querySelector('.product-img')?.appendChild(b)}b.textContent=favs.includes(id)?'♥':'♡';b.classList.toggle('active',favs.includes(id))})}
  function enhanceProducts(){document.querySelectorAll('.product').forEach(card=>{if(card.dataset.nleEnhanced)return;card.dataset.nleEnhanced='1';const body=card.querySelector('.product-body');if(!body)return;const row=document.createElement('div');row.className='nle-product-actions';row.innerHTML='<button type="button" class="nle-add">🛒 Ajouter au panier</button><button type="button" class="nle-buy-now">⚡ Acheter maintenant</button>';body.appendChild(row);const buy=row.querySelector('.nle-buy-now');buy.addEventListener('click',()=>{add(productFromCard(card));open('nleCartDrawer')});});paintFavs()}
  enhanceProducts();
+ window.addEventListener('nle-products-updated',()=>{enhanceProducts();render();});
  function updateCheckoutTotals(){const zone=$('nleZone').value,t=totals(zone);$('nleCheckoutTotals').innerHTML=`<div class="nle-line"><span>Sous-total</span><b>${money(t.subtotal)}</b></div><div class="nle-line"><span>Livraison</span><b>${t.delivery===0?'GRATUITE':(t.delivery==='VAR'?'À confirmer selon la quantité':'À calculer')}</b></div><div class="nle-line nle-total"><span>Total</span><b>${t.total===null?'À confirmer':money(t.total)}</b></div>`}
  $('nleZone').addEventListener('change',updateCheckoutTotals);
  $('nleCheckoutForm').addEventListener('submit',e=>{e.preventDefault();if(!cart.length)return;const name=$('nleName').value.trim(),phone=$('nlePhone').value.trim(),zone=$('nleZone').value,address=$('nleAddress').value.trim(),note=$('nleNote').value.trim(),tx=$('nleTransaction').value.trim();const t=totals(zone);const num='NLE-'+new Date().getFullYear()+'-'+String(Date.now()).slice(-6);const order={id:num,date:new Date().toISOString(),name,phone,zone,address,note,transaction:tx,payment:'NatCash',status:'Paiement à vérifier',items:cart.map(x=>({...x})),subtotal:t.subtotal,delivery:t.delivery,total:t.total};orders.unshift(order);localStorage.setItem(ORD,JSON.stringify(orders));const lines=['Bonjour NLE Best Deal 👋','',`🧾 COMMANDE ${num}`,'Nom : '+name,'Téléphone : '+phone,'Zone : '+zone,'Adresse : '+address,'Paiement : NatCash',tx?'Référence transaction : '+tx:'Référence transaction : à compléter après paiement','',...cart.map(x=>`• ${x.name} x${x.qty} = ${money(x.price*x.qty)}`),'',`Sous-total : ${money(t.subtotal)}`,`Livraison : ${t.delivery===0?'GRATUITE':(t.delivery==='VAR'?'À confirmer selon quantité':'À confirmer')}`,`Total : ${t.total===null?'À confirmer':money(t.total)}`,'','Merci de vérifier mon paiement et de confirmer ma livraison.'];if(note)lines.push('Note : '+note);window.open('https://wa.me/'+WA+'?text='+encodeURIComponent(lines.join('\n')),'_blank');cart=[];save();render();close('nleCheckoutModal');flash('Commande '+num+' créée');});
@@ -982,7 +1003,12 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 (function(){
-  const cfg=window.NLE_SUPABASE_CONFIG||{};
+  const externalCfg=window.NLE_SUPABASE_CONFIG||{};
+  // Fallback: keeps the storefront connected even when supabase-config.js is not bundled with index.html.
+  const cfg={
+    url: externalCfg.url || 'https://bfgelskeixdtneghuxcd.supabase.co',
+    key: externalCfg.key || 'sb_publishable_FW5FGNFjIlRSSbtcCp3JSA_GybtgjoO'
+  };
   if(!cfg.url||!cfg.key||String(cfg.url).includes('COLLE_ICI')||String(cfg.key).includes('COLLE_ICI')) return;
   if(!window.supabase) return;
   const client=window.supabase.createClient(cfg.url,cfg.key);
@@ -990,13 +1016,33 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
   if(!grid) return;
   const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
   const wa=name=>`https://wa.me/50942113669?text=${encodeURIComponent('Bonjour NLE Best Deal 👋, je suis intéressé(e) par '+name+'. Je souhaite connaître le prix et les modalités de livraison.')}`;
+  function formatPrice(value){
+    if(value===null||value===undefined||value==='') return 'Prix sur demande';
+    const raw=String(value).trim();
+    const num=Number(raw.replace(/[^0-9.]/g,''));
+    if(Number.isFinite(num)) return new Intl.NumberFormat('fr-FR',{maximumFractionDigits:0}).format(num)+' HTG';
+    return raw;
+  }
+  function normalizeImages(value){
+    if(Array.isArray(value)) return value.filter(Boolean);
+    if(typeof value==='string'){
+      const raw=value.trim();
+      if(!raw) return [];
+      try{ const parsed=JSON.parse(raw); if(Array.isArray(parsed)) return parsed.filter(Boolean); }catch(e){}
+      return raw.split(/\s*[,|]\s*/).filter(Boolean);
+    }
+    return [];
+  }
   function addDynamicProduct(p){
     if(grid.querySelector('[data-remote-id="'+CSS.escape(p.id)+'"]')) return;
     const card=document.createElement('article');
-    card.className='product dynamic-product'; card.dataset.remoteId=p.id; card.dataset.name=p.name; card.dataset.price=p.price; card.dataset.category=p.category; card.dataset.source=p.source||'NLE';
-    const imgs=(p.images||[]).filter(Boolean);
+    const imgs=normalizeImages(p.images);
+    const priceText=formatPrice(p.price);
+    card.className='product dynamic-product'; card.dataset.remoteId=p.id; card.dataset.name=p.name; card.dataset.price=priceText; card.dataset.category=p.category||'Autres'; card.dataset.source=p.source||'NLE';
+    card.setAttribute('aria-label','Voir les détails de '+(p.name||'Produit NLE Best Deal'));
+    const galleryClass=imgs.length>1?'':' single';
     const imageHtml=imgs.map((src,i)=>`<img loading="lazy" decoding="async" alt="${esc(p.name)} — photo ${i+1}" src="${esc(src)}">`).join('');
-    card.innerHTML=`<div class="product-img photo product-gallery single dynamic-product-gallery"><div class="badge-stack"><span class="shop-badge new">${esc(p.badge||'NOUVEAU')}</span><span class="source-badge nle">${p.source==='Partenaire'?'🤝 Partenaire':'🛍️ NLE Best Deal'}</span></div><span class="gallery-count">📸 ${imgs.length} photo${imgs.length>1?'s':''}</span>${imageHtml||'<div style="height:100%;display:grid;place-items:center;color:#9ba8c4">Photo indisponible</div>'}</div><div class="product-body"><span class="tag">${esc(p.badge||'NOUVEAU')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'Produit disponible chez NLE Best Deal.')}</p><div class="product-row"><span class="product-price">${esc(p.price)}</span><a class="buy" href="${wa(p.name)}" target="_blank" rel="noopener noreferrer">Commander</a></div><div class="availability">${p.available?'✓ Disponible':'✕ Rupture de stock'}</div></div>`;
+    card.innerHTML=`<div class="product-img photo product-gallery${galleryClass} dynamic-product-gallery"><div class="badge-stack"><span class="shop-badge new">${esc(p.badge||'NOUVEAU')}</span><span class="source-badge nle">${p.source==='Partenaire'?'🤝 Partenaire':'🛍️ NLE Best Deal'}</span></div>${imgs.length>1?`<span class="gallery-count">📸 ${imgs.length} photos</span>`:''}${imageHtml||'<div style="height:100%;display:grid;place-items:center;color:#9ba8c4">Photo indisponible</div>'}</div><div class="product-body"><span class="tag">${esc(p.badge||'NOUVEAU')}</span><h3>${esc(p.name)}</h3><p>${esc(p.description||'Produit disponible chez NLE Best Deal.')}</p><div class="product-row"><span class="product-price">${esc(priceText)}</span><a class="buy" href="${wa(p.name)}" target="_blank" rel="noopener noreferrer">Commander</a></div><div class="availability">${p.available?'✓ Disponible':'✕ Rupture de stock'}</div></div>`;
     if(!p.available) card.classList.add('is-out-of-stock');
     grid.prepend(card);
   }
@@ -1012,6 +1058,8 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
     }catch(e){ console.warn('NLE produits en ligne:',e); }
   }
   loadRemoteProducts();
+  // Refresh periodically so products added/edited from the phone admin appear on the storefront.
+  setInterval(loadRemoteProducts, 15000);
 })();
 </script>
 </body>
