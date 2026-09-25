@@ -505,7 +505,97 @@ button,a,input,select{touch-action:manipulation}a:focus-visible,button:focus-vis
 .reward-history{margin-top:16px}.reward-history div{display:flex;justify-content:space-between;gap:10px;padding:9px 0;border-bottom:1px solid #26304a;font-size:.85rem}.reward-history span{color:#a9b3c8}
 @media(max-width:800px){.rewards-top,.reward-grid{grid-template-columns:1fr}.reward-form-grid{grid-template-columns:1fr}.rewards-card{padding:18px}.reward-link{flex-direction:column}.reward-link .btn{width:100%}}
 </style>
-</head>
+<style>
+/* NLE Best Deal — refonte mobile compacte 2026 */
+@media (max-width: 600px) {
+  body{font-size:14px;overflow-x:hidden}
+  .container{width:100%;padding-left:12px;padding-right:12px}
+  header nav{height:58px}
+  .brand{font-size:.92rem;gap:6px}
+  .logo-img{width:68px;height:50px;margin-right:0}
+  .mobile-menu-toggle{font-size:1.2rem;padding:5px}
+  .nav-cta{padding:7px 10px!important;border-radius:9px;font-size:.75rem}
+  .hero{padding:22px 0 18px!important}
+  .hero-grid{display:block}
+  .hero .eyebrow{font-size:.68rem;padding:5px 8px;margin-bottom:8px}
+  .hero h1{font-size:2rem;line-height:1.02;margin-bottom:9px}
+  .hero p{font-size:.86rem;line-height:1.35;margin-bottom:12px}
+  .hero .actions{gap:7px}
+  .hero .btn{width:auto;padding:9px 11px;font-size:.78rem}
+  .hero-card{display:none!important}
+  section{padding:26px 0!important}
+  .section-head{margin-bottom:13px!important}
+  .section-head h2{font-size:1.25rem!important}
+  .section-head p{font-size:.76rem;line-height:1.3;margin-top:3px}
+  .products{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+  .product{border-radius:12px}
+  .product-gallery,.product-img{height:150px!important}
+  .product-body{padding:9px}
+  .product h3{font-size:.86rem;margin-bottom:3px}
+  .product p{font-size:.72rem;line-height:1.25;margin-bottom:7px}
+  .tag{font-size:.58rem;padding:3px 6px;margin-bottom:5px}
+  .product-price{font-size:.98rem!important}
+  .product-price:before{font-size:.52rem}
+  .buy{padding:7px 8px!important;font-size:.68rem!important;border-radius:8px}
+  .product .product-img::after{font-size:.56rem;padding:4px 6px;right:6px;bottom:6px}
+  .badge-stack{top:6px;left:6px;gap:4px}
+  .shop-badge{font-size:.55rem;padding:4px 6px}
+  .product-tools{gap:7px;margin-bottom:12px}
+  .product-search input{padding:10px 10px 10px 36px;font-size:14px}
+  .category-filters{gap:5px;overflow-x:auto;flex-wrap:nowrap;padding-bottom:2px}
+  .category-btn{padding:7px 9px;font-size:.68rem;white-space:nowrap}
+  .offer-card{padding:12px!important;border-radius:15px!important;gap:12px!important}
+  .offer-media img{height:190px!important}
+  .offer-copy h2{font-size:1.45rem!important}
+  .offer-copy p{font-size:.78rem;line-height:1.3;margin-bottom:9px}
+  .offer-price{font-size:1.25rem;margin-bottom:8px}
+  .trust-row{gap:5px;margin-top:8px}
+  .trust-chip{font-size:.62rem;padding:5px 7px}
+  #livraison .delivery-grid{grid-template-columns:1fr 1fr;gap:7px}
+  #livraison .delivery-card{padding:9px!important;border-radius:11px}
+  #livraison .delivery-icon{font-size:1.1rem;margin-bottom:3px}
+  #livraison .delivery-card h3{font-size:.78rem;margin-bottom:3px}
+  #livraison .delivery-card p{font-size:.62rem;line-height:1.25}
+  #avis{padding-top:18px!important;padding-bottom:18px!important}
+  #avis .section-head{margin-bottom:7px!important}
+  #avis .review-empty{padding:9px!important;border-radius:11px}
+  #avis .review-stars{font-size:.8rem}
+  #avis .review-empty h3{font-size:.76rem;margin:3px 0}
+  #avis .review-empty p{font-size:.61rem;line-height:1.2;margin-bottom:6px}
+  #avis .review-empty .btn{width:auto;padding:6px 8px;font-size:.62rem}
+  #avantages .features{grid-template-columns:repeat(3,minmax(0,1fr));gap:6px}
+  #avantages .feature{padding:8px!important;border-radius:10px}
+  #avantages .feature-icon{font-size:1rem;margin-bottom:3px}
+  #avantages .feature h3{font-size:.68rem;margin-bottom:0}
+  #avantages .feature p{display:none}
+  #avantages .trust-strip{display:none}
+  #a-propos .about-card{padding:10px!important;gap:10px!important;border-radius:14px}
+  #a-propos .about-photo,#a-propos .about-photo img{min-height:170px!important;height:170px}
+  #a-propos .about-copy h2{font-size:1.3rem}
+  #a-propos .about-name{font-size:.9rem;margin-bottom:6px}
+  #a-propos .about-copy p{font-size:.7rem;line-height:1.3;margin-bottom:7px}
+  #a-propos .about-grid{grid-template-columns:1fr 1fr;gap:5px;margin-top:7px}
+  #a-propos .about-item{padding:7px;border-radius:8px}
+  #a-propos .about-item strong{font-size:.65rem;margin-bottom:2px}
+  #a-propos .about-item span{font-size:.57rem}
+  #a-propos .email-box{padding:7px;margin-top:6px;font-size:.62rem}
+  #instagram .instagram-grid{gap:6px}
+  #instagram .instagram-card{padding:8px!important;border-radius:9px}
+  #instagram .instagram-card strong{font-size:.68rem}
+  #instagram .instagram-card small{font-size:.58rem}
+  #rewards{padding:16px 8px!important}
+  #rewards .section-head h2{font-size:1.1rem!important}
+  #rewards .section-head p{font-size:.68rem}
+  #contact .cta{padding:13px!important;border-radius:14px}
+  #contact .cta h2{font-size:1.15rem}
+  #contact .cta p{font-size:.7rem}
+  #contact .payment{font-size:.62rem;padding:7px 8px;margin-top:7px}
+  #contact .btn{font-size:.7rem;padding:8px 10px}
+  footer{padding:15px 0;font-size:.62rem}
+  .socials{gap:8px;flex-wrap:wrap;margin-top:7px}
+  .floating-wa{right:10px;bottom:10px;padding:9px 12px;font-size:.72rem}
+}
+</style></head>
 <body>
 <header>
 <div class="container">
