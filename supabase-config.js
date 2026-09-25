@@ -9,5 +9,5 @@ window.NLE_SUPABASE_CONFIG = {
   function load(src){var s=document.createElement('script');s.src=src;s.defer=true;document.head.appendChild(s)}
   var p=location.pathname||'';
   if(/admin\.html$/i.test(p){load('nle-admin-rewards.js');load('nle-admin-content.js')}
-  else{load('nle-site-settings.js');load('nle-rewards-verification.js')}
+  else{load('nle-site-settings.js');load('nle-rewards-verification.js');load('nle-pdg-gallery.js')}
 })();
