@@ -4,3 +4,10 @@ window.NLE_SUPABASE_CONFIG = {
   url: 'https://bfgelskeixdtneghuxcd.supabase.co',
   key: 'sb_publishable_FW5FGNFjIlRSSbtcCp3JSA_GybtgjoO'
 };
+
+(function(){
+  function load(src){var s=document.createElement('script');s.src=src;s.defer=true;document.head.appendChild(s)}
+  var p=location.pathname||'';
+  if(/admin\\.html$/i.test(p)){load('nle-admin-rewards.js')}
+  else{load('nle-site-settings.js');load('nle-rewards-verification.js')}
+})();
