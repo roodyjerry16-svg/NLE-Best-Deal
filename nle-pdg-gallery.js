@@ -20,3 +20,4 @@ var st=document.createElement('style');st.textContent='#pdgGallery .pdg-gallery-
 if(document.readyState==='loading')document.addEventListener('DOMContentLoaded',fix);else fix();
 setTimeout(fix,300);setTimeout(fix,1200);
 })();
+// 2026-09-25: force a fresh GitHub Pages publication of the current NLE Best Deal version.
