@@ -30,7 +30,7 @@ async function review(v,ok){
   var u=await s.from('nle_reward_profiles').update({points:Number(p.data.points||0)+Number(v.points||3),updated_at:new Date().toISOString()}).eq('referral_code',v.referral_code);
   if(u.error){alert(u.error.message);return}
  }
- await s.from('nle_reward_verifications').update({status:ok?'approved':'rejected',reviewed_at:new Date().toISOString(),reviewed_by:auth.data.user.id}).eq('id',v.id);
+ await s.from('nle_reward_verifications').update({status:ok?'approved':'rejected',reviewed_at:new Date().toISOString(),reviewed_by:auth.data.user.id}).eq('id',v.id);\n if(v.session_id) await s.from('nle_reward_events').update({status:ok?'approved':'rejected',points_awarded:ok?Number(v.points||3):0,reviewed_at:new Date().toISOString(),reviewed_by:auth.data.user.id}).eq('referral_code',v.referral_code).eq('session_id',v.session_id).eq('platform',v.platform).eq('status','pending');
  await load();
 }
 var st=document.createElement('style');st.textContent='.nleVerifyList{display:grid;gap:9px}.nleVerifyItem{padding:12px;border:1px solid #2d3958;border-radius:14px;background:#0b1221}.nleVerifyItem small{display:block;color:#9ba8c4;margin:5px 0}.nleVerifyItem button{border:0;border-radius:10px;padding:10px 12px;font-weight:800;margin-right:7px}.nleApprove{background:#25d366}.nleReject{background:#3a1d28;color:#ffb4bf}';document.head.appendChild(st);
