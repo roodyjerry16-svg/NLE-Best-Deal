@@ -11,14 +11,14 @@
   let state={}; try{state=JSON.parse(localStorage.getItem(KEY)||'{}')}catch(e){}
   state.code=state.code||('NLE'+Math.random().toString(36).slice(2,8).toUpperCase());
   state.session=state.session||('s_'+Math.random().toString(36).slice(2));
-  state.points=Number(state.points||0);
+  state.points=Number(state.points||0);state.pendingCount=Number(state.pendingCount||0);
   state.pending=Array.isArray(state.pending)?state.pending:[];
   const save=()=>localStorage.setItem(KEY,JSON.stringify(state));
   const $=id=>document.getElementById(id);
   function syncPoints(){
     const old=Number(localStorage.getItem('nle_rewards_v1_points')||0);
     if(old>state.points) state.points=old;
-    const el=$('nleRewardPoints'); if(el) el.textContent=state.points;
+    const el=$('nleRewardPoints'); if(el) el.textContent=state.points; var p=$('nleRewardPending'); if(!p){p=document.createElement('div');p.id='nleRewardPending';p.className='nle-pending-points';var host=document.getElementById('nleRewardPoints');if(host&&host.parentNode)host.parentNode.appendChild(p)} p.textContent=state.pendingCount>0?'⏳ '+state.pendingCount+' tâche(s) en attente de vérification':'✅ Aucune tâche en attente';
   }
   async function refreshApproved(){
     try{
@@ -26,7 +26,7 @@
       if(Array.isArray(data)){
         const total=data.reduce((n,x)=>n+Number(x.points_awarded||0),0);
         state.points=Math.max(state.points,total);
-        syncPoints(); save();
+        syncPoints(); var q=await sb.from('nle_reward_verifications').select('id').eq('referral_code',state.code).eq('session_id',state.session).eq('status','pending'); state.pendingCount=(q.data||[]).length; syncPoints(); save();
       }
     }catch(e){}
   }
@@ -48,7 +48,7 @@
         referral_code:state.code,session_id:state.session,platform,username,points:3,status:'pending'
       });
       if(error){msg.textContent='❌ Impossible d’envoyer la demande. Réessaie après avoir installé le système Rewards dans Supabase.';msg.className='nle-verify-msg show err';return}
-      state.pending.push(task);save();
+      state.pending.push(task);state.pendingCount=state.pending.length;syncPoints();save();
       msg.textContent='⏳ Demande envoyée. Les +3 ⭐ apparaîtront uniquement après vérification par NLE Best Deal.';
       msg.className='nle-verify-msg show';
       box.querySelector('.nle-verify-submit').disabled=true;
@@ -63,7 +63,7 @@
     addBox(btn,platform);
   });
   const style=document.createElement('style');
-  style.textContent='.nle-verify-box{margin-top:10px;padding:12px;border:1px solid #33405f;border-radius:14px;background:rgba(255,255,255,.025)}.nle-verify-box label{display:block;font-size:.82rem;font-weight:800;margin-bottom:8px}.nle-verify-user{width:100%;margin-top:5px;padding:10px;border:1px solid #33405f;border-radius:10px;background:#0b1020;color:#fff}.nle-verify-check{display:flex!important;gap:8px;align-items:flex-start}.nle-verify-check input{width:auto!important;min-height:auto!important}.nle-verify-submit{width:100%;margin-top:4px}.nle-verify-msg{display:none;margin-top:8px;padding:8px;border-radius:9px;font-size:.82rem;color:#c9d5ee}.nle-verify-msg.show{display:block;background:#0b1221}.nle-verify-msg.err{color:#ffacb8}';
+  style.textContent='.nle-verify-box{margin-top:10px;padding:12px;border:1px solid #33405f;border-radius:14px;background:rgba(255,255,255,.025)}.nle-verify-box label{display:block;font-size:.82rem;font-weight:800;margin-bottom:8px}.nle-verify-user{width:100%;margin-top:5px;padding:10px;border:1px solid #33405f;border-radius:10px;background:#0b1020;color:#fff}.nle-verify-check{display:flex!important;gap:8px;align-items:flex-start}.nle-verify-check input{width:auto!important;min-height:auto!important}.nle-verify-submit{width:100%;margin-top:4px}.nle-verify-msg{display:none;margin-top:8px;padding:8px;border-radius:9px;font-size:.82rem;color:#c9d5ee}.nle-verify-msg.show{display:block;background:#0b1221}.nle-verify-msg.err{color:#ffacb8}.nle-pending-points{margin-top:6px;font-size:.78rem;font-weight:800;color:#ffd84d}';
   document.head.appendChild(style);
   syncPoints(); refreshApproved(); setInterval(refreshApproved,15000);
 })();
