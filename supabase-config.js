@@ -8,6 +8,6 @@ window.NLE_SUPABASE_CONFIG = {
 (function(){
   function load(src){var s=document.createElement('script');s.src=src;s.defer=true;document.head.appendChild(s)}
   var p=location.pathname||'';
-  if(/admin\.html$/i.test(p)){load('nle-admin-v3.js?v=20260928d')}
+  if(/admin\.html$/i.test(p)){load('nle-admin-v3.js?v=20260928e')}
   else{load('nle-site-settings.js');load('nle-rewards-verification.js');load('nle-pdg-gallery.js')}
 })();
