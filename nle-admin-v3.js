@@ -1,6 +1,6 @@
 /* NLE Best Deal — Admin V3: éditeur complet + Rewards */
 (function(){
-  if(!/admin\\.html$/i.test(location.pathname)||!window.supabase)return;
+  if(!/admin\.html$/i.test(location.pathname)||!window.supabase)return;
   var cfg=window.NLE_SUPABASE_CONFIG||{}, sb=window.supabase.createClient(cfg.url,cfg.key);
   var labels={
     hero_title:'Accueil — titre principal',hero_subtitle:'Accueil — sous-titre',
