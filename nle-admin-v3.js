@@ -94,6 +94,29 @@
     if(ev.error){alert('Demande validée, mais journal Rewards non mis à jour : '+ev.error.message);return}
     await loadRewards();
   }
+  function diagnostics(){
+    if(document.getElementById('nleDiagV3'))return;
+    var d=document.getElementById('dashboard');if(!d||d.classList.contains('hidden'))return;
+    var p=document.createElement('section');p.id='nleDiagV3';p.className='panel';
+    p.innerHTML='<h2>🧪 Diagnostic Admin</h2><p class="muted">Teste la session et les tables sans modifier les données.</p><div class="actions"><button class="secondary" id="nleDiagRun">Tester maintenant</button></div><div id="nleDiagOut" class="status hidden"></div>';
+    d.appendChild(p);
+    document.getElementById('nleDiagRun').onclick=async function(){
+      var out=document.getElementById('nleDiagOut');out.className='status';out.textContent='Test en cours…';
+      var lines=[];
+      try{
+        var a=await sb.auth.getUser();
+        lines.push(a.error?'❌ Auth : '+a.error.message:'✅ Auth : '+(a.data.user&&a.data.user.email?a.data.user.email:'session active'));
+        for(var i=0;i<4;i++){
+          var names=['products','site_settings','nle_reward_verifications','nle_reward_profiles'];
+          var q=await sb.from(names[i]).select('*',{count:'exact',head:true});
+          lines.push(q.error?'❌ '+names[i]+' : '+q.error.message:'✅ '+names[i]+' : accès OK ('+(q.count==null?'?':q.count)+' ligne(s))');
+        }
+      }catch(e){lines.push('❌ Diagnostic : '+(e&&e.message?e.message:String(e)))}
+      out.innerHTML=lines.map(function(x){return esc(x)}).join('<br>');out.className='status '+(lines.some(function(x){return x.indexOf('❌')===0})?'err':'ok');
+    };
+  }
   var style=document.createElement('style');style.textContent='#nleAdminV3{border-color:#ffd84d}.nleV3Reward{padding:14px;margin-top:9px;border:1px solid #2d3958;border-radius:14px;background:#0b1221}.rewardSummary{padding:12px;border:1px solid #2d3958;border-radius:12px;background:#0b1221}.nleV3Reward small{display:block;color:#9ba8c4;margin:5px 0}.nleV3Reward .actions{position:static;background:none;padding:0}.nleV3Reward button{min-height:44px}.nleV3Reward .danger{background:rgba(255,97,120,.15);color:#ff9bac;border:1px solid rgba(255,97,120,.4)}';document.head.appendChild(style);
-  new MutationObserver(add).observe(document.body,{childList:true,subtree:true});setTimeout(add,700);
+  function mount(){add();diagnostics()}
+  new MutationObserver(mount).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
+  setInterval(mount,1200);setTimeout(mount,200);
 })();
