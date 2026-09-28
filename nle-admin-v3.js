@@ -56,30 +56,44 @@
   }
   async function loadRewards(){
     var box=document.getElementById('nleRewardsV3List');if(!box)return;
-    var r=await sb.from('nle_reward_verifications').select('*').eq('status','pending').order('created_at',{ascending:true});
-    if(r.error){box.innerHTML='<div class="status err">❌ Rewards non installé ou inaccessible dans Supabase : '+esc(r.error.message)+'</div>';return}
-    if(!r.data||!r.data.length){box.innerHTML='<div class="empty">✅ Aucune demande Rewards en attente.</div>';return}
-    box.innerHTML=r.data.map(function(v){
-      return '<div class="nleV3Reward" data-id="'+esc(v.id)+'"><b>'+esc(v.platform)+' — @'+esc(v.username)+'</b><small>Code : '+esc(v.referral_code)+' · +'+Number(v.points||3)+' ⭐</small><div class="actions"><button class="primary" data-review="ok">✅ Valider</button><button class="danger" data-review="no">❌ Refuser</button></div></div>';
+    var r=await sb.from('nle_reward_verifications').select('*').order('created_at',{ascending:false});
+    if(r.error){box.innerHTML='<div class="status err">❌ Rewards inaccessible : '+esc(r.error.message)+'<br><small>Vérifie les droits SELECT/UPDATE de ton compte authentifié dans Supabase.</small></div>';return}
+    var rows=r.data||[],pending=rows.filter(function(v){return v.status==='pending'});
+    var html='<div class="rewardSummary"><b>'+pending.length+'</b> en attente · <b>'+rows.filter(function(v){return v.status==='approved'}).length+'</b> validées · <b>'+rows.filter(function(v){return v.status==='rejected'}).length+'</b> refusées</div>';
+    if(!rows.length){box.innerHTML=html+'<div class="empty">Aucune demande Rewards enregistrée.</div>';return}
+    html+=rows.map(function(v){
+      var pendingNow=v.status==='pending';
+      return '<div class="nleV3Reward" data-id="'+esc(v.id)+'"><b>'+esc(v.platform)+' — @'+esc(v.username)+'</b><small>Code : '+esc(v.referral_code)+' · '+Number(v.points||3)+' ⭐ · statut : <strong>'+esc(v.status)+'</strong></small>'+
+      (v.proof_note?'<div class="notice">Note : '+esc(v.proof_note)+'</div>':'')+
+      (pendingNow?'<div class="actions"><button class="primary" data-review="ok">✅ Accepter + créditer</button><button class="danger" data-review="no">❌ Refuser</button></div>':'')+
+      '</div>';
     }).join('');
+    box.innerHTML=html;
     box.querySelectorAll('[data-review]').forEach(function(b){b.onclick=function(){review(this.closest('.nleV3Reward').getAttribute('data-id'),this.getAttribute('data-review')==='ok')}})
   }
   async function review(id,ok){
-    var u=await sb.auth.getUser();if(!u.data.user){alert('Session Admin expirée.');return}
+    var u=await sb.auth.getUser();if(u.error||!u.data.user){alert('Session Admin expirée.');return}
     var q=await sb.from('nle_reward_verifications').select('*').eq('id',id).maybeSingle();
-    if(q.error||!q.data){alert('Demande introuvable.');return}
+    if(q.error){alert('Lecture Rewards refusée : '+q.error.message);return}
+    if(!q.data){alert('Demande introuvable.');return}
     var v=q.data;
+    if(v.status!=='pending'){alert('Cette demande a déjà été traitée.');return}
     if(ok){
-      var p=await sb.from('nle_reward_profiles').select('points').eq('referral_code',v.referral_code).maybeSingle();
-      if(p.error||!p.data){alert('Profil Rewards introuvable.');return}
-      var up=await sb.from('nle_reward_profiles').update({points:Number(p.data.points||0)+Number(v.points||3),updated_at:new Date().toISOString()}).eq('referral_code',v.referral_code);
-      if(up.error){alert(up.error.message);return}
+      var p=await sb.from('nle_reward_profiles').select('id,points').eq('referral_code',v.referral_code).maybeSingle();
+      if(p.error){alert('Profil Rewards inaccessible : '+p.error.message);return}
+      if(!p.data){alert('Profil Rewards introuvable pour le code '+v.referral_code+'.');return}
+      var newPoints=Number(p.data.points||0)+Number(v.points||3);
+      var up=await sb.from('nle_reward_profiles').update({points:newPoints,updated_at:new Date().toISOString()}).eq('id',p.data.id).select('id,points').maybeSingle();
+      if(up.error){alert('Crédit des points refusé : '+up.error.message);return}
+      if(!up.data){alert('Crédit non confirmé : droits UPDATE manquants sur nle_reward_profiles.');return}
     }
-    var z=await sb.from('nle_reward_verifications').update({status:ok?'approved':'rejected',reviewed_at:new Date().toISOString(),reviewed_by:u.data.user.id}).eq('id',id);
-    if(z.error){alert(z.error.message);return}
-    await sb.from('nle_reward_events').update({status:ok?'approved':'rejected',points_awarded:ok?Number(v.points||3):0,reviewed_at:new Date().toISOString(),reviewed_by:u.data.user.id}).eq('referral_code',v.referral_code).eq('session_id',v.session_id).eq('platform',v.platform).eq('status','pending');
-    loadRewards();
+    var z=await sb.from('nle_reward_verifications').update({status:ok?'approved':'rejected',reviewed_at:new Date().toISOString(),reviewed_by:u.data.user.id}).eq('id',id).select('id,status').maybeSingle();
+    if(z.error){alert('Validation refusée : '+z.error.message);return}
+    if(!z.data){alert('Validation non confirmée : droits UPDATE manquants sur nle_reward_verifications.');return}
+    var ev=await sb.from('nle_reward_events').update({status:ok?'approved':'rejected',points_awarded:ok?Number(v.points||3):0,reviewed_at:new Date().toISOString(),reviewed_by:u.data.user.id}).eq('referral_code',v.referral_code).eq('platform',v.platform).eq('status','pending');
+    if(ev.error){alert('Demande validée, mais journal Rewards non mis à jour : '+ev.error.message);return}
+    await loadRewards();
   }
-  var style=document.createElement('style');style.textContent='#nleAdminV3{border-color:#ffd84d}.nleV3Reward{padding:14px;margin-top:9px;border:1px solid #2d3958;border-radius:14px;background:#0b1221}.nleV3Reward small{display:block;color:#9ba8c4;margin:5px 0}.nleV3Reward .actions{position:static;background:none;padding:0}.nleV3Reward button{min-height:44px}.nleV3Reward .danger{background:rgba(255,97,120,.15);color:#ff9bac;border:1px solid rgba(255,97,120,.4)}';document.head.appendChild(style);
+  var style=document.createElement('style');style.textContent='#nleAdminV3{border-color:#ffd84d}.nleV3Reward{padding:14px;margin-top:9px;border:1px solid #2d3958;border-radius:14px;background:#0b1221}.rewardSummary{padding:12px;border:1px solid #2d3958;border-radius:12px;background:#0b1221}.nleV3Reward small{display:block;color:#9ba8c4;margin:5px 0}.nleV3Reward .actions{position:static;background:none;padding:0}.nleV3Reward button{min-height:44px}.nleV3Reward .danger{background:rgba(255,97,120,.15);color:#ff9bac;border:1px solid rgba(255,97,120,.4)}';document.head.appendChild(style);
   new MutationObserver(add).observe(document.body,{childList:true,subtree:true});setTimeout(add,700);
 })();
