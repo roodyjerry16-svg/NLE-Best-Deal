@@ -19,8 +19,8 @@
     var d=document.getElementById('dashboard'); if(!d||d.classList.contains('hidden'))return;
     if(!document.getElementById('nleAdminV3')){
       var p=document.createElement('section');p.id='nleAdminV3';p.className='panel';
-      p.innerHTML='<h2>🛠️ Éditeur complet du site — V3</h2><p class="muted">Cette section permet de modifier les réglages enregistrés du site. Les produits se modifient dans « Produits publiés ».</p><div id="nleV3Status" class="status hidden"></div><div id="nleV3Fields"></div><div class="actions"><button class="primary" id="nleV3Save">💾 Enregistrer tout le site</button><button class="secondary" id="nleV3Reload">↻ Recharger</button></div>';
-      d.insertBefore(p,d.firstChild); loadSettings();
+      p.innerHTML='<h2>🛠️ Éditeur complet du site — V3</h2><p class="muted">Cette section permet de modifier les réglages enregistrés du site. Les produits se modifient dans « Produits publiés ».</p><div class="status" id="nleConnectionState">⏳ Vérification de la connexion…</div><div class="actions"><button class="secondary" id="nleForceCheck">🔄 Vérifier la connexion</button><button class="secondary" id="nleHardReload">♻️ Recharger Admin</button></div><div id="nleV3Status" class="status hidden"></div><div id="nleV3Fields"></div><div class="actions"><button class="primary" id="nleV3Save">💾 Enregistrer tout le site</button><button class="secondary" id="nleV3Reload">↻ Recharger</button></div>';
+      d.insertBefore(p,d.firstChild); loadSettings();checkConnection();
     }
     if(!document.getElementById('nleRewardsV3')){
       var w=document.createElement('section');w.id='nleRewardsV3';w.className='panel';
@@ -30,6 +30,22 @@
   }
   function status(id,msg,ok){
     var e=document.getElementById(id);if(!e)return;e.textContent=msg;e.className='status '+(ok?'ok':'err');e.classList.remove('hidden');
+  }
+  async function checkConnection(){
+    var e=document.getElementById('nleConnectionState');if(!e)return;
+    try{
+      var a=await sb.auth.getSession();
+      if(a.error){e.className='status err';e.textContent='❌ Supabase : '+a.error.message;return}
+      if(!a.data||!a.data.session){e.className='status err';e.textContent='⚠️ Admin non connecté à Supabase.';return}
+      var u=a.data.session.user;
+      var p=await sb.from('products').select('id',{count:'exact',head:true});
+      var r=await sb.from('nle_reward_verifications').select('id',{count:'exact',head:true});
+      var parts=['✅ Session Admin active'];
+      parts.push(p.error?'❌ Produits : '+p.error.message:'✅ Produits : '+(p.count==null?'accès OK':p.count+' ligne(s)'));
+      parts.push(r.error?'❌ Rewards : '+r.error.message:'✅ Rewards : '+(r.count==null?'accès OK':r.count+' demande(s)'));
+      e.innerHTML=parts.map(function(x){return esc(x)}).join('<br>');
+      e.className='status '+(parts.some(function(x){return x.indexOf('❌')===0})?'err':'ok');
+    }catch(err){e.className='status err';e.textContent='❌ Connexion : '+(err&&err.message?err.message:String(err))}
   }
   async function loadSettings(){
     var box=document.getElementById('nleV3Fields');if(!box)return;
@@ -45,7 +61,7 @@
         '<div class="notice">clé : '+esc(k)+'</div></div>';
     }).join('');
     document.getElementById('nleV3Save').onclick=saveSettings;
-    document.getElementById('nleV3Reload').onclick=loadSettings;
+    document.getElementById('nleV3Reload').onclick=loadSettings;document.getElementById('nleForceCheck').onclick=checkConnection;document.getElementById('nleHardReload').onclick=function(){location.href=location.href.split('#')[0]+'?admin_refresh='+Date.now()};
   }
   async function saveSettings(){
     var els=[].slice.call(document.querySelectorAll('#nleV3Fields [data-v3-key]'));
@@ -116,7 +132,7 @@
     };
   }
   var style=document.createElement('style');style.textContent='#nleAdminV3{border-color:#ffd84d}.nleV3Reward{padding:14px;margin-top:9px;border:1px solid #2d3958;border-radius:14px;background:#0b1221}.rewardSummary{padding:12px;border:1px solid #2d3958;border-radius:12px;background:#0b1221}.nleV3Reward small{display:block;color:#9ba8c4;margin:5px 0}.nleV3Reward .actions{position:static;background:none;padding:0}.nleV3Reward button{min-height:44px}.nleV3Reward .danger{background:rgba(255,97,120,.15);color:#ff9bac;border:1px solid rgba(255,97,120,.4)}';document.head.appendChild(style);
-  function mount(){add();diagnostics()}
+  function mount(){add();diagnostics();checkConnection()}
   new MutationObserver(mount).observe(document.body,{childList:true,subtree:true,attributes:true,attributeFilter:['class']});
   setInterval(mount,1200);setTimeout(mount,200);
 })();
